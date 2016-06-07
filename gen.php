@@ -217,18 +217,23 @@ if (!$_POST){
 
 ?><!DOCTYPE html>
 <title> Software Inc. XML Generator </title>
-
 	<!-- Custom CSS -->
 	<style>
 	body {
 		padding-top: 70px;
 		background-color: #d6d8cd;
 	}
-	optgroup {
-		align: center;
-		font-size:150%;
-		color: white;
+	select optgroup {
 		background-color: black;
+		color: white;
+		
+		font-size: 150%;
+		line-height: 15px;
+		letter-spacing: 2px;
+	}
+	select option {
+		background-color: white;
+		color: black;
 	}
 	</style>
 
@@ -240,8 +245,6 @@ if (!$_POST){
 		<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
 		<script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
 	<![endif]-->
-</head>
-
 <body>
 <nav class="navbar navbar-inverse navbar-fixed-top">
   <div class="container-fluid">
