@@ -4,7 +4,7 @@
 
 // XML Skeleton(Only the bare minimum should be in here)
 $xmlSkeleton = <<<XML
-<Root>
+<Root AutoBounds="True">
 	<Models>
 		<Model>
 			<File></File>
@@ -14,12 +14,6 @@ $xmlSkeleton = <<<XML
 		</Model>
 	</Models>
 	<Furniture>
-		<Category></Category>
-		<Cost></Cost>
-		<ButtonDescription></ButtonDescription>
-		<UnlockYear></UnlockYear>
-		<PrimaryColorName></PrimaryColorName>
-		<ColorPrimaryDefault></ColorPrimaryDefault>
 	</Furniture>
 </Root>
 XML;
@@ -192,7 +186,6 @@ if (!$_POST){
 				break;
 			// Add AutoBounds = True
 			case "submit":
-				$xml->addAttribute("AutoBounds", "True");
 				continue;
 			default:
 				break;
@@ -227,7 +220,7 @@ if (!$_POST){
 		background-color: black;
 		color: white;
 		
-		font-size: 150%;
+		font-size: 125%;
 		line-height: 15px;
 		letter-spacing: 2px;
 	}
@@ -236,6 +229,8 @@ if (!$_POST){
 		color: black;
 	}
 	</style>
+	<!-- noUIslider -->
+	<link rel="stylesheet" href="js/nouislider.css">
 
 	<!-- Bootstrap -->
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
@@ -269,7 +264,7 @@ if (!$_POST){
 					<!-- Basic Options Panel -->
 					<div class="panel panel-default">
 						<div class="panel-heading">
-							<h3 class="panel-title"> Basic Options </h3>
+							<h3 class="panel-title"><b>Required </b>| Basic Options</h3>
 						</div>
 						<div class="panel-body">
 
@@ -277,80 +272,17 @@ if (!$_POST){
 						<div class="form-group">
 							<label class=" col-md-4 control-label" for="Base">Base</label>
 							<div class="col-md-6">
-								<select id="Base" name="Base" class="form-control">
+								<select id="Base" name="Base" class="form-control" required="yes">
 									<?=_html_generate_options($baseFurnitureTypes); ?>
 								</select>
 							</div>
 						</div>
 
 						<div class="form-group">
-						  <label class=" col-md-4 control-label" for="UpgradeFrom">Upgrade From</label>
+						  <label class=" col-md-4 control-label" for="UpgradeFrom">Upgrade</label>
 						  <div class="col-md-6">
-							<select id="UpgradeFrom" name="UpgradeFrom" class="form-control">
-								<option value="" style="align: center; font-size:150%; color: white; background-color: black;">Office</span></option>
-								<option value="Table"> Table </option>
-								<option value="Glass Table"> Glass Table </option>
-								<option value="2m End Table"> 2m End Table </option>
-								<option value="3m End Table"> 3m End Table </option>
-								<option value="Cheap Chair"> Cheap Chair </option>
-								<option value="Office Chair"> Office Chair </option>
-								<option value="Old Computer"> Old Computer </option>
-								<option value="90s Computer"> 90s Computer </option>
-								<option value="Laptop"> Laptop </option> Laptop </option>
-								<option value="Modern Computer"> Modern Computer </option>
-								<option value="HoloComputer">  HoloComputer </option>
-								<option value="Cubicle Wall">  Cubicle Wall </option>
-								<option value="TV">  TV </option>
-								<option value="Bookshelf">  Bookshelf </option>
-								<option value="Phone">  Phone </option>
-								<option value="Drawing Tablet">  Drawing Tablet </option>
-								<option value="Calculator">  Calculator </option>
-								<option value="Inbox">  Inbox </option>
-								<option value="" style="align: center; font-size:150%; color: white; background-color: black;">Reception</option>
-								<option value="Waiting Chairs">  Waiting Chairs </option>
-								<option value="Couch">  Couch </option>
-								<option value="Reception desk">  Reception desk </option>
-								<option value="" style="align: center; font-size:150%; color: white; background-color: black;">Outdoor</option>
-								<option value="Bench">  Bench </option>
-								<option value="Outdoor Lamp">  Outdoor Lamp </option>
-								<option value="Small tree">  Small tree </option>
-								<option value="Small pine tree">  Small pine tree </option>
-								<option value="" style="align: center; font-size:150%; color: white; background-color: black;">Temperature</option>
-								<option value="Small Heater">  Small Heater </option>
-								<option value="Ceiling Fan">  Ceiling Fan </option>
-								<option value="Radiator">  Radiator </option>
-								<option value="Ventilation">  Ventilation </option>
-								<option value="Central Heating">  Central Heating </option>
-								<option value="AC Unit">  AC Unit </option>
-								<option value="Industrial ventilation">  Industrial ventilation </option>
-								<option value="" style="align: center; font-size:150%; color: white; background-color: black;">Lighting</option>
-								<option value="Lamp">  Lamp </option>
-								<option value="Wall Lamp">  Wall Lamp </option>
-								<option value="Desk Lamp">  Desk Lamp </option>
-								<option value="Floor Lamp">  Floor Lamp </option>
-								<option value="Fluroescent lamp">  Fluroescent lamp </option>
-								<option value="" style="align: center; font-size:150%; color: white; background-color: black;">Needs</option>
-								<option value="Vending Machine">  Vending Machine </option>
-								<option value="Fridge">  Fridge </option>
-								<option value="Stove">  Stove </option>
-								<option value="Serving Tray">  Serving Tray </option>
-								<option value="Instant Coffee">  Instant Coffee </option>
-								<option value="Coffee">  Coffee </option>
-								<option value="Espresso Machine">  Espresso Machine </option>
-								<option value="Toilet">  Toilet </option>
-								<option value="Watercooler">  Watercooler </option>
-								<option value="" style="align: center; font-size:150%; color: white; background-color: black;">Decoration</option>
-								<option value="Painting">  Painting </option>
-								<option value="Floor Plant">  Floor Plant </option>
-								<option value="Table Plant">  Table Plant </option>
-								<option value="Table Cactus">  Table Cactus </option>
-								<option value="Big Plant">  Big Plant </option>
-								<option value="Clock">  Clock </option>
-								<option value="" style="align: center; font-size:150%; color: white; background-color: black;">Server</option>
-								<option value="Small Server">  Small Server </option>
-								<option value="Medium Server">  Medium Server </option>
-								<option value="Tower Server">  Tower Server </option>
-								<option value="Server Rack">  Server Rack </option>
+							<select id="UpgradeFrom" name="UpgradeFrom" class="form-control" required="yes">
+									<?=_html_generate_options($baseFurnitureTypes); ?>
 							</select>
 						  </div>
 						</div>
@@ -358,45 +290,37 @@ if (!$_POST){
 						<div class="form-group">
 						  <label class=" col-md-4 control-label" for="Thumbnail">Thumbnail</label>
 						  <div class="col-md-6">
-						  <input id="Thumbnail" name="Thumbnail" type="text" placeholder="Thumbnail.png" class="form-control input-md" >
+						  <input id="Thumbnail" name="Thumbnail" type="text" placeholder="Thumbs.png" class="form-control input-md" required="yes">
 						  </div>
 						</div>
 
 						<div class="form-group">
 						  <label class=" col-md-4 control-label" for="File">3D Model</label>
 						  <div class="col-md-6">
-						  <input id="File" name="File" type="text" placeholder="modObject.obj" class="form-control input-md" > 
+						  <input id="File" name="File" type="text" placeholder="modObject.obj" class="form-control input-md" required="yes"> 
+						  </div>
+						</div>
+						<div class="form-group">
+						  <label class=" col-md-4 control-label" for="Position">Position</label>
+						  <div class="col-md-6">
+						  <input id="Position" name="Position" type="text" class="form-control input-md" value="0,0,0">
+						  </div>
+						</div>
+
+						<div class="form-group">
+						  <label class=" col-md-4 control-label" for="Rotation">Rotation</label>
+						  <div class="col-md-6">
+						  <input id="Rotation" name="Rotation" type="text" class="form-control input-md" value="0,0,0">
+						  </div>
+						</div>
+
+						<div class="form-group">
+						  <label class=" col-md-4 control-label" for="Scale">Scale</label>  
+						  <div class="col-md-6">
+						  <input id="Scale" name="Scale" type="text" class="form-control input-md" value="0,0,0">
 						  </div>
 						</div>
 					</div>
-					</div>
-					<!-- Model Options Panel -->
-					<div class="panel panel-default">
-						<div class="panel-heading">
-							<h3 class="panel-title"> Model Options </h3>
-						</div>
-						<div class="panel-body">
-							<div class="form-group">
-							  <label class=" col-md-4 control-label" for="Position">Position</label>
-							  <div class="col-md-6">
-							  <input id="Position" name="Position" type="text" placeholder="x,y,z" class="form-control input-md" >
-							  </div>
-							</div>
-
-							<div class="form-group">
-							  <label class=" col-md-4 control-label" for="Rotation">Rotation</label>
-							  <div class="col-md-6">
-							  <input id="Rotation" name="Rotation" type="text" placeholder="x,y,z" class="form-control input-md" >
-							  </div>
-							</div>
-
-							<div class="form-group">
-							  <label class=" col-md-4 control-label" for="Scale">Scale</label>  
-							  <div class="col-md-6">
-							  <input id="Scale" name="Scale" type="text" placeholder="0,0,0" class="form-control input-md" value="0,0,0">
-							  </div>
-							</div>
-						</div>
 					</div>
 					<input type="submit" class="btn btn-success btn-lg btn-block" name="submit" value="Download XML">
 				</div>
@@ -414,7 +338,7 @@ if (!$_POST){
 									<div class="form-group">
 									  <label class="col-md-4 control-label" for="Type">Type</label>  
 									  <div class="col-md-7">
-									  <input id="Type" name="Type" type="text" placeholder="fill type" class="form-control input-md">  
+									  <input id="Type" name="Type" type="text" placeholder="Unique Type" class="form-control input-md">  
 									  </div>
 									</div>
 
@@ -474,62 +398,60 @@ if (!$_POST){
 								</div>
 								<!-- Right Furniture -->
 								<div class="col-md-6">
+
 									<div class="form-group">
-									  <label class="col-md-4 control-label" for="ComputerPower">Computer Power</label>  
+									  <label class="col-md-4 control-label" for="Environment">Environment</label>  
 									  <div class="col-md-7">
-									  <input id="ComputerPower" name="ComputerPower" type="text" placeholder="(rangemin,rangemax)" class="form-control input-md">
+									  <input id="Environment" name="Environment" type="text" placeholder="0-2 (Negative to Positive)" class="form-control input-md">
+									  </div>
+									</div>
+
+									<div class="form-group">
+									  <label class="col-md-4 control-label" for="Wattage">Wattage</label>  
+									  <div class="col-md-7">
+									  <input id="Wattage" name="Wattage" type="text" placeholder="0-100 (None to Full)" class="form-control input-md">
 									  </div>
 									</div>
 
 									<div class="form-group">
 									  <label class="col-md-4 control-label" for="Lighting">Lighting</label>  
 									  <div class="col-md-7">
-									  <input id="Lighting" name="Lighting" type="text" placeholder="(rangemin,rangemax)" class="form-control input-md">
-										
-									  </div>
-									</div>
-
-									<div class="form-group">
-									  <label class="col-md-4 control-label" for="Environment">Environment</label>  
-									  <div class="col-md-7">
-									  <input id="Environment" name="Environment" type="text" placeholder="(rangemin,rangemax)" class="form-control input-md">
-										
+									  <input id="Lighting" name="Lighting" type="text" placeholder="0-2 (None to Full)" class="form-control input-md">								
 									  </div>
 									</div>
 
 									<div class="form-group">
 									  <label class="col-md-4 control-label" for="Noisiness">Noisiness</label>  
 									  <div class="col-md-7">
-									  <input id="Noisiness" name="Noisiness" type="text" placeholder="(rangemin,rangemax)" class="form-control input-md">
-										
+									  <input id="Noisiness" name="Noisiness" type="text" placeholder="0-55 (None to Full)" class="form-control input-md">
 									  </div>
 									</div>
 
 									<div class="form-group">
 									  <label class="col-md-4 control-label" for="Water">Water Usage</label>  
 									  <div class="col-md-7">
-									  <input id="Water" name="Water" type="text" placeholder="(rangemin,rangemax)" class="form-control input-md">
+									  <input id="Water" name="Water" type="text" placeholder="0-100 (None to Full)" class="form-control input-md">
 									  </div>
 									</div>
 
 									<div class="form-group">
-									  <label class="col-md-4 control-label" for="Wattage">Energy Usage</label>  
+									  <label class="col-md-4 control-label" for="Coffee">Coffee</label>  
 									  <div class="col-md-7">
-									  <input id="Wattage" name="Wattage" type="text" placeholder="(rangemin,rangemax)" class="form-control input-md">
-									  </div>
-									</div>
-
-									<div class="form-group">
-									  <label class="col-md-4 control-label" for="Coffee">Coffee Strength</label>  
-									  <div class="col-md-7">
-									  <input id="Coffee" name="Coffee" type="text" placeholder="(rangemin,rangemax)" class="form-control input-md">
+									  <input id="Coffee" name="Coffee" type="text" placeholder="0-3 (None to Full)" class="form-control input-md"> 
 									  </div>
 									</div>
 
 									<div class="form-group">
 									  <label class="col-md-4 control-label" for="Comfort">Comfort</label>  
 									  <div class="col-md-7">
-									  <input id="Comfort" name="Comfort" type="text" placeholder="(rangemin,rangemax)" class="form-control input-md">
+									  <input id="Comfort" name="Comfort" type="text" placeholder="0-1 (None to Full)" class="form-control input-md" >
+									  </div>
+									</div>
+
+									<div class="form-group">
+									  <label class="col-md-4 control-label" for="ComputerPower">PC Power</label>  
+									  <div class="col-md-7">
+									  <input id="ComputerPower" name="ComputerPower" type="text" placeholder="0-1.75 (None to Full)" class="form-control input-md" > 
 									  </div>
 									</div>
 								</div>
@@ -668,4 +590,5 @@ if (!$_POST){
 	</div>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
+	<script src="js/nouislider.js"></script>
 </body>
