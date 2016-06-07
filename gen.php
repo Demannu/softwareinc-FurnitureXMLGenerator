@@ -114,105 +114,105 @@ function _html_generate_options($groups) {
 if (!$_POST){
 	// Form not submitted
 } else {
- 	// Build XML to Download
+	// Build XML to Download
 	$xml=new SimpleXMLElement($xmlSkeleton);
- 	foreach($_POST as $k => $v){
-        switch ($k) {
-        	// Ignore unknown input for now
-        	case $v == "": 
-        		continue;
-        	// <Root>
-        	case "Base":
-        	case "UpgradeFrom":
-        	case "Thumbnail":
-        		$xml->addAttribute($k, $v);
-        		break;
-        	// <Models><Model>
-        	case "File":
-        	case "Position":
-        	case "Rotation":
-        	case "Scale":
-        		$xml->Models->Model->$k = $v;
-        		break;
-        	// <Furniture>
-        	case "Category":
-        	case "Cost":
-        	case "ButtonDescription":
-        	case "UnlockYear":
-        	case "PrimaryColorName":
-        	case "SecondaryColorName":
-        	case "TertiaryColorName":
-        	case "ColorPrimaryEnabled":
-        	case "ColorSecondaryEnabled":
-        	case "ColorTertiaryEnabled":
-        	case "ForceColorSecondary":
-        	case "ForceColorTertiary":
-        	case "Wattage":
-        	case "FunctionCategory":
-        	case "ComputerPower":
-        	case "Lighting":
-        	case "Coffee":
-        	case "Wait":
-        	case "Water":
-        	case "Noisiness":
-        	case "Comfort":
-        	case "Environment":
-        	case "BasementValid":
-        	case "OnlyExteriorWalls":
-        	case "WallFurn":
-        	case "IsSnapping":
-        	case "CanAssign":
-        	case "ValidIndoors":
-        	case "ValidOutdoors":
-        	case "ValidOnFence":
-        	case "ForceAccessible":
-        	case "ITFix":
-        	case "TemperatureController":
-        	case "EqualizeTemperature":
-        	case "AlwaysOn":
-        		$xml->Furniture->$k = $v; // $k, input name; $v, input value
-        		break;
-        	case "AuraValues":
-        	case "RoleBuffs":
-        		$v = str_replace(',', "\n", $v);
-        		$xml->Furniture->$k = $v; // $k, input name; $v, input value
-        		break;
-        	case "ColorPrimaryDefault":
-        	case "ColorSecondaryDefault":
-        	case "ColorTertiaryDefault":
-        		$v = explode(",", $v);
-        		$colors = '';
-        		foreach ($v as $color) {
-        			$colorx = ($color / 255);
-        			$colorx = round($colorx, 3);
-        			$colors .= $colorx . "\n";
-        		};
-        		$colors .= "1";
-        		$xml->Furniture->$k = $colors;
-        		break;
-        	// Add AutoBounds = True
-        	case "submit":
-        		$xml->addAttribute("AutoBounds", "True");
-        		continue;
-        	default:
-        		break;
-        }
-    }
-    // Take SimpleXML, make it human-readable
-    $dom = new DOMDocument('1.0');
-    $dom->preserveWhiteSpace = false;
-    $dom->formatOutput = true;
-    $dom->loadXML($xml->asXML());
-    // Set download headers
-    header('Content-Description: File Transfer');
-    header('Content-Type: application/xml');
-    header('Content-Disposition: attachment; filename="' . $_POST["File"] . '.xml"');
-    header('Content-Length: ' . strlen($xml->asXML()));
-    ob_clean();
-    flush();
-    // Send XML file to browser
-    echo $dom->saveXML();
-    exit;
+	foreach($_POST as $k => $v){
+		switch ($k) {
+			// Ignore unknown input for now
+			case $v == "": 
+				continue;
+			// <Root>
+			case "Base":
+			case "UpgradeFrom":
+			case "Thumbnail":
+				$xml->addAttribute($k, $v);
+				break;
+			// <Models><Model>
+			case "File":
+			case "Position":
+			case "Rotation":
+			case "Scale":
+				$xml->Models->Model->$k = $v;
+				break;
+			// <Furniture>
+			case "Category":
+			case "Cost":
+			case "ButtonDescription":
+			case "UnlockYear":
+			case "PrimaryColorName":
+			case "SecondaryColorName":
+			case "TertiaryColorName":
+			case "ColorPrimaryEnabled":
+			case "ColorSecondaryEnabled":
+			case "ColorTertiaryEnabled":
+			case "ForceColorSecondary":
+			case "ForceColorTertiary":
+			case "Wattage":
+			case "FunctionCategory":
+			case "ComputerPower":
+			case "Lighting":
+			case "Coffee":
+			case "Wait":
+			case "Water":
+			case "Noisiness":
+			case "Comfort":
+			case "Environment":
+			case "BasementValid":
+			case "OnlyExteriorWalls":
+			case "WallFurn":
+			case "IsSnapping":
+			case "CanAssign":
+			case "ValidIndoors":
+			case "ValidOutdoors":
+			case "ValidOnFence":
+			case "ForceAccessible":
+			case "ITFix":
+			case "TemperatureController":
+			case "EqualizeTemperature":
+			case "AlwaysOn":
+				$xml->Furniture->$k = $v; // $k, input name; $v, input value
+				break;
+			case "AuraValues":
+			case "RoleBuffs":
+				$v = str_replace(',', "\n", $v);
+				$xml->Furniture->$k = $v; // $k, input name; $v, input value
+				break;
+			case "ColorPrimaryDefault":
+			case "ColorSecondaryDefault":
+			case "ColorTertiaryDefault":
+				$v = explode(",", $v);
+				$colors = '';
+				foreach ($v as $color) {
+					$colorx = ($color / 255);
+					$colorx = round($colorx, 3);
+					$colors .= $colorx . "\n";
+				};
+				$colors .= "1";
+				$xml->Furniture->$k = $colors;
+				break;
+			// Add AutoBounds = True
+			case "submit":
+				$xml->addAttribute("AutoBounds", "True");
+				continue;
+			default:
+				break;
+		}
+	}
+	// Take SimpleXML, make it human-readable
+	$dom = new DOMDocument('1.0');
+	$dom->preserveWhiteSpace = false;
+	$dom->formatOutput = true;
+	$dom->loadXML($xml->asXML());
+	// Set download headers
+	header('Content-Description: File Transfer');
+	header('Content-Type: application/xml');
+	header('Content-Disposition: attachment; filename="' . $_POST["File"] . '.xml"');
+	header('Content-Length: ' . strlen($xml->asXML()));
+	ob_clean();
+	flush();
+	// Send XML file to browser
+	echo $dom->saveXML();
+	exit;
 }
 
 ?><!DOCTYPE html>
@@ -235,26 +235,28 @@ if (!$_POST){
 	<!-- Bootstrap -->
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
 	<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-    <!--[if lt IE 9]>
-        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-    <![endif]-->
+	<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+	<!--[if lt IE 9]>
+		<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+		<script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+	<![endif]-->
+</head>
+
 <body>
 <nav class="navbar navbar-inverse navbar-fixed-top">
   <div class="container-fluid">
-    <!-- Brand and toggle get grouped for better mobile display -->
-    <div class="navbar-header">
-      <a class="navbar-brand" href="https://steamcommunity.com/id/spairolled/myworkshopfiles/">Demannu | Workshop</a>
-    </div>
+	<!-- Brand and toggle get grouped for better mobile display -->
+	<div class="navbar-header">
+	  <a class="navbar-brand" href="https://steamcommunity.com/id/spairolled/myworkshopfiles/">Demannu | Workshop</a>
+	</div>
 
-    <!-- Collect the nav links, forms, and other content for toggling -->
-    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-      <ul class="nav navbar-nav">
-        <li class="active"><a href="http://demannu.com/softwareinc/gen.php">XML Generator <span class="sr-only">(current)</span></a></li>
-        <li><a href="#">Link</a></li>
-      </ul>
-    </div>
+	<!-- Collect the nav links, forms, and other content for toggling -->
+	<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+	  <ul class="nav navbar-nav">
+		<li class="active"><a href="http://demannu.com/softwareinc/gen.php">XML Generator <span class="sr-only">(current)</span></a></li>
+		<li><a href="#">Link</a></li>
+	  </ul>
+	</div>
   </div>
 </nav>
 	<div class="container-fluid">
@@ -281,8 +283,8 @@ if (!$_POST){
 						<div class="form-group">
 						  <label class=" col-md-4 control-label" for="UpgradeFrom">Upgrade From</label>
 						  <div class="col-md-6">
-						    <select id="UpgradeFrom" name="UpgradeFrom" class="form-control">
-						    	<option value="" style="align: center; font-size:150%; color: white; background-color: black;">Office</span></option>
+							<select id="UpgradeFrom" name="UpgradeFrom" class="form-control">
+								<option value="" style="align: center; font-size:150%; color: white; background-color: black;">Office</span></option>
 								<option value="Table"> Table </option>
 								<option value="Glass Table"> Glass Table </option>
 								<option value="2m End Table"> 2m End Table </option>
@@ -346,7 +348,7 @@ if (!$_POST){
 								<option value="Medium Server">  Medium Server </option>
 								<option value="Tower Server">  Tower Server </option>
 								<option value="Server Rack">  Server Rack </option>
-						    </select>
+							</select>
 						  </div>
 						</div>
 
@@ -354,7 +356,6 @@ if (!$_POST){
 						  <label class=" col-md-4 control-label" for="Thumbnail">Thumbnail</label>
 						  <div class="col-md-6">
 						  <input id="Thumbnail" name="Thumbnail" type="text" placeholder="Thumbnail.png" class="form-control input-md" >
-
 						  </div>
 						</div>
 
@@ -417,15 +418,15 @@ if (!$_POST){
 									<div class="form-group">
 									  <label class="col-md-4 control-label" for="Cateogry">Category</label>
 									  <div class="col-md-7">
-									    <select id="Category" name="Category" class="form-control">
-									      	<option value="Office">Office</option>
+										<select id="Category" name="Category" class="form-control">
+											<option value="Office">Office</option>
 											<option value="Reception">Reception</option>
 											<option value="Temperature">Temperature</option>
 											<option value="Lighting">Lighting</option>
 											<option value="Needs">Needs</option>
 											<option value="Decoration">Decoration</option>
 											<option value="Server">Server</option>
-									    </select>
+										</select>
 									  </div>
 									</div>
 
@@ -441,14 +442,14 @@ if (!$_POST){
 									  <label class="col-md-4 control-label" for="UnlockYear">Unlock Year</label>  
 									  <div class="col-md-7">
 									  <input id="UnlockYear" name="UnlockYear" type="text" placeholder="1970" class="form-control input-md" >
-									    
+										
 									  </div>
 									</div>
 
 									<div class="form-group">
 									  <label class="col-md-4 control-label" for="ButtonDescription">Description</label>
 									  <div class="col-md-7">                     
-									    <textarea class="form-control" id="ButtonDescription" name="ButtonDescription" placeholder="Write something nice about your item!"></textarea>
+										<textarea class="form-control" id="ButtonDescription" name="ButtonDescription" placeholder="Write something nice about your item!"></textarea>
 									  </div>
 									</div>
 
@@ -481,7 +482,7 @@ if (!$_POST){
 									  <label class="col-md-4 control-label" for="Lighting">Lighting</label>  
 									  <div class="col-md-7">
 									  <input id="Lighting" name="Lighting" type="text" placeholder="(rangemin,rangemax)" class="form-control input-md">
-									    
+										
 									  </div>
 									</div>
 
@@ -489,7 +490,7 @@ if (!$_POST){
 									  <label class="col-md-4 control-label" for="Environment">Environment</label>  
 									  <div class="col-md-7">
 									  <input id="Environment" name="Environment" type="text" placeholder="(rangemin,rangemax)" class="form-control input-md">
-									    
+										
 									  </div>
 									</div>
 
@@ -497,7 +498,7 @@ if (!$_POST){
 									  <label class="col-md-4 control-label" for="Noisiness">Noisiness</label>  
 									  <div class="col-md-7">
 									  <input id="Noisiness" name="Noisiness" type="text" placeholder="(rangemin,rangemax)" class="form-control input-md">
-									    
+										
 									  </div>
 									</div>
 
@@ -610,10 +611,10 @@ if (!$_POST){
 									<div class="form-group">
 									  <div class="col-md-4">
 										<div class="checkbox">
-										    <label for="ColorPrimaryEnabled-0">
-										      <input type="checkbox" name="ColorPrimaryEnabled" id="ColorPrimaryEnabled-0" value="True">
-										      Primary
-										    </label>
+											<label for="ColorPrimaryEnabled-0">
+											  <input type="checkbox" name="ColorPrimaryEnabled" id="ColorPrimaryEnabled-0" value="True">
+											  Primary
+											</label>
 										</div>
 									  </div>
 									</div>
@@ -622,10 +623,10 @@ if (!$_POST){
 									<div class="form-group">
 									  <div class="col-md-4">
 									  <div class="checkbox">
-									    <label for="ColorSecondaryEnabled-0">
-									      <input type="checkbox" name="ColorSecondaryEnabled" id="ColorSecondaryEnabled-0" value="True">
-									      Secondary
-									    </label>
+										<label for="ColorSecondaryEnabled-0">
+										  <input type="checkbox" name="ColorSecondaryEnabled" id="ColorSecondaryEnabled-0" value="True">
+										  Secondary
+										</label>
 										</div>
 									  </div>
 									</div>
@@ -634,10 +635,10 @@ if (!$_POST){
 									<div class="form-group">
 									  <div class="col-md-4">
 									  <div class="checkbox">
-									    <label for="ColorTertiaryEnabled-0">
-									      <input type="checkbox" name="ColorTertiaryEnabled" id="ColorTertiaryEnabled-0" value="True">
-									      Tertiary
-									    </label>
+										<label for="ColorTertiaryEnabled-0">
+										  <input type="checkbox" name="ColorTertiaryEnabled" id="ColorTertiaryEnabled-0" value="True">
+										  Tertiary
+										</label>
 										</div>
 									  </div>
 									</div>
