@@ -86,7 +86,7 @@ $baseFurnitureTypes = array(
 		"Clock",
 	),
 	"Server" => array(
-		"Samll Server",
+		"Small Server",
 		"Medium Server",
 		"Tower Server",
 		"Server Rack",
