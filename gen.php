@@ -14,8 +14,8 @@ $xmlSkeleton = <<<XML
 		</Model>
 	</Models>
 	<Furniture>
-		<Category></Category> 
-		<Cost></Cost> 
+		<Category></Category>
+		<Cost></Cost>
 		<ButtonDescription></ButtonDescription>
 		<UnlockYear></UnlockYear>
 		<PrimaryColorName></PrimaryColorName>
@@ -24,6 +24,93 @@ $xmlSkeleton = <<<XML
 </Root>
 XML;
 
+$baseFurnitureTypes = array(
+	"Office" => array(
+		"Table",
+		"Glass Table",
+		"2m End Table",
+		"3m End Table",
+		"Cheap Chair",
+		"Office Chair",
+		"Old Computer",
+		"90s Computer",
+		"Laptop",
+		"Modern Computer",
+		"HoloComputer",
+		"Cubicle Wall",
+		"TV",
+		"Bookshelf",
+		"Phone",
+		"Drawing Tablet",
+		"Calculator",
+		"Inbox",
+	),
+	"Reception" => array(
+		"Waiting Chairs",
+		"Couch",
+		"Reception Desk",
+	),
+	"Outdoor" => array(
+		"Bench",
+		"Outdoor Lamp",
+		"Small tree",
+		"Small pine tree",
+	),
+	"Temperature" => array(
+		"Small Heater",
+		"Ceiling Fan",
+		"Radiator",
+		"Ventilation",
+		"Central Heating",
+		"AC Unit",
+		"Industrial ventilation",
+	),
+	"Lighting" => array(
+		"Lamp",
+		"Wall Lamp",
+		"Desk Lamp",
+		"Floor Lamp",
+		"Fluroescent lamp",
+	),
+	"Needs" => array(
+		"Vending Machine",
+		"Fridge",
+		"Stove",
+		"Serving Tray",
+		"Instant Coffee",
+		"Coffee",
+		"Espresso Machine",
+		"Toilet",
+		"Watercooler",
+	),
+	"Decoration" => array(
+		"Painting",
+		"Floor Plant",
+		"Table Plant",
+		"Table Cactus",
+		"Big Plant",
+		"Clock",
+	),
+	"Server" => array(
+		"Samll Server",
+		"Medium Server",
+		"Tower Server",
+		"Server Rack",
+	)
+);
+
+// In Place (outputs) <option value="$a">$a</option> in categories.
+function _html_generate_options($groups) {
+	foreach ($groups as $label => $options) {
+		echo "<optgroup label=\"$label\">";
+		foreach ($options as $option) {
+			echo "<option value=\"$option\">$option</option>";
+		}
+		echo "</optgroup>";
+	}
+}
+
+// Read the POST data and act on the inputs
 if (!$_POST){
 	// Form not submitted
 } else {
@@ -128,18 +215,20 @@ if (!$_POST){
 	exit;
 }
 
-?>
-
-<!DOCTYPE html>
-<html lang="en">
-<head>
-	<title> Software Inc XML Generator </title>
+?><!DOCTYPE html>
+<title> Software Inc. XML Generator </title>
 
 	<!-- Custom CSS -->
 	<style>
 	body {
 		padding-top: 70px;
 		background-color: #d6d8cd;
+	}
+	optgroup {
+		align: center;
+		font-size:150%;
+		color: white;
+		background-color: black;
 	}
 	</style>
 
@@ -158,12 +247,6 @@ if (!$_POST){
   <div class="container-fluid">
 	<!-- Brand and toggle get grouped for better mobile display -->
 	<div class="navbar-header">
-	  <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-		<span class="sr-only">Toggle navigation</span>
-		<span class="icon-bar"></span>
-		<span class="icon-bar"></span>
-		<span class="icon-bar"></span>
-	  </button>
 	  <a class="navbar-brand" href="https://steamcommunity.com/id/spairolled/myworkshopfiles/">Demannu | Workshop</a>
 	</div>
 
@@ -186,76 +269,15 @@ if (!$_POST){
 							<h3 class="panel-title"> Basic Options </h3>
 						</div>
 						<div class="panel-body">
+
+						<!-- Select Basic -->
 						<div class="form-group">
-						  <label class=" col-md-4 control-label" for="Base">Base</label>
-						  <div class="col-md-6">
-							<select id="Base" name="Base" class="form-control">
-								<option value="" style="align: center; font-size:150%; color: white; background-color: black;">Office</span></option>
-								<option value="Table"> Table </option>
-								<option value="Glass Table"> Glass Table </option>
-								<option value="2m End Table"> 2m End Table </option>
-								<option value="3m End Table"> 3m End Table </option>
-								<option value="Cheap Chair"> Cheap Chair </option>
-								<option value="Office Chair"> Office Chair </option>
-								<option value="Old Computer"> Old Computer </option> 
-								<option value="90s Computer"> 90s Computer </option>  
-								<option value="Laptop"> Laptop </option> Laptop </option>  
-								<option value="Modern Computer"> Modern Computer </option> 
-								<option value="HoloComputer">  HoloComputer </option>
-								<option value="Cubicle Wall">  Cubicle Wall </option>
-								<option value="TV">  TV </option>
-								<option value="Bookshelf">  Bookshelf </option>
-								<option value="Phone">  Phone </option>
-								<option value="Drawing Tablet">  Drawing Tablet </option>
-								<option value="Calculator">  Calculator </option>
-								<option value="Inbox">  Inbox </option>
-								<option value="" style="align: center; font-size:150%; color: white; background-color: black;">Reception</option>
-								<option value="Waiting Chairs">  Waiting Chairs </option>
-								<option value="Couch">  Couch </option>
-								<option value="Reception desk">  Reception desk </option>
-								<option value="" style="align: center; font-size:150%; color: white; background-color: black;">Outdoor</option>
-								<option value="Bench">  Bench </option>
-								<option value="Outdoor Lamp">  Outdoor Lamp </option>
-								<option value="Small tree">  Small tree </option>
-								<option value="Small pine tree">  Small pine tree </option>
-								<option value="" style="align: center; font-size:150%; color: white; background-color: black;">Temperature</option>
-								<option value="Small Heater">  Small Heater </option>
-								<option value="Ceiling Fan">  Ceiling Fan </option>
-								<option value="Radiator">  Radiator </option>
-								<option value="Ventilation">  Ventilation </option>
-								<option value="Central Heating">  Central Heating </option>
-								<option value="AC Unit">  AC Unit </option>
-								<option value="Industrial ventilation">  Industrial ventilation </option>
-								<option value="" style="align: center; font-size:150%; color: white; background-color: black;">Lighting</option>
-								<option value="Lamp">  Lamp </option>
-								<option value="Wall Lamp">  Wall Lamp </option>
-								<option value="Desk Lamp">  Desk Lamp </option>
-								<option value="Floor Lamp">  Floor Lamp </option>
-								<option value="Fluroescent lamp">  Fluroescent lamp </option>
-								<option value="" style="align: center; font-size:150%; color: white; background-color: black;">Needs</option>
-								<option value="Vending Machine">  Vending Machine </option>
-								<option value="Fridge">  Fridge </option>
-								<option value="Stove">  Stove </option>
-								<option value="Serving Tray">  Serving Tray </option>
-								<option value="Instant Coffee">  Instant Coffee </option>
-								<option value="Coffee">  Coffee </option>
-								<option value="Espresso Machine">  Espresso Machine </option>
-								<option value="Toilet">  Toilet </option>
-								<option value="Watercooler">  Watercooler </option>
-								<option value="" style="align: center; font-size:150%; color: white; background-color: black;">Decoration</option>
-								<option value="Painting">  Painting </option>
-								<option value="Floor Plant">  Floor Plant </option>
-								<option value="Table Plant">  Table Plant </option>
-								<option value="Table Cactus">  Table Cactus </option>
-								<option value="Big Plant">  Big Plant </option>
-								<option value="Clock">  Clock </option>
-								<option value="" style="align: center; font-size:150%; color: white; background-color: black;">Server</option>
-								<option value="Small Server">  Small Server </option>
-								<option value="Medium Server">  Medium Server </option>
-								<option value="Tower Server">  Tower Server </option>
-								<option value="Server Rack">  Server Rack </option>
-							</select>
-						  </div>
+							<label class=" col-md-4 control-label" for="Base">Base</label>
+							<div class="col-md-6">
+								<select id="Base" name="Base" class="form-control">
+									<?=_html_generate_options($baseFurnitureTypes); ?>
+								</select>
+							</div>
 						</div>
 
 						<div class="form-group">
@@ -269,10 +291,10 @@ if (!$_POST){
 								<option value="3m End Table"> 3m End Table </option>
 								<option value="Cheap Chair"> Cheap Chair </option>
 								<option value="Office Chair"> Office Chair </option>
-								<option value="Old Computer"> Old Computer </option> 
-								<option value="90s Computer"> 90s Computer </option>  
-								<option value="Laptop"> Laptop </option> Laptop </option>  
-								<option value="Modern Computer"> Modern Computer </option> 
+								<option value="Old Computer"> Old Computer </option>
+								<option value="90s Computer"> 90s Computer </option>
+								<option value="Laptop"> Laptop </option> Laptop </option>
+								<option value="Modern Computer"> Modern Computer </option>
 								<option value="HoloComputer">  HoloComputer </option>
 								<option value="Cubicle Wall">  Cubicle Wall </option>
 								<option value="TV">  TV </option>
@@ -331,15 +353,14 @@ if (!$_POST){
 						</div>
 
 						<div class="form-group">
-						  <label class=" col-md-4 control-label" for="Thumbnail">Thumbnail</label>  
+						  <label class=" col-md-4 control-label" for="Thumbnail">Thumbnail</label>
 						  <div class="col-md-6">
 						  <input id="Thumbnail" name="Thumbnail" type="text" placeholder="Thumbnail.png" class="form-control input-md" >
-							
 						  </div>
 						</div>
 
 						<div class="form-group">
-						  <label class=" col-md-4 control-label" for="File">3D Model</label>  
+						  <label class=" col-md-4 control-label" for="File">3D Model</label>
 						  <div class="col-md-6">
 						  <input id="File" name="File" type="text" placeholder="modObject.obj" class="form-control input-md" > 
 						  </div>
@@ -450,7 +471,6 @@ if (!$_POST){
 								</div>
 								<!-- Right Furniture -->
 								<div class="col-md-6">
-
 									<div class="form-group">
 									  <label class="col-md-4 control-label" for="ComputerPower">Computer Power</label>  
 									  <div class="col-md-7">
@@ -646,4 +666,3 @@ if (!$_POST){
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
 </body>
-</html>
