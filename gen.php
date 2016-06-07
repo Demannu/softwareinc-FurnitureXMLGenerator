@@ -111,6 +111,7 @@ if (!$_POST){
 	// Build XML to Download
 	$xml=new SimpleXMLElement($xmlSkeleton);
 	foreach($_POST as $k => $v){
+		// $k, input name; $v, input value
 		switch ($k) {
 			// Ignore unknown input for now
 			case $v == "": 
@@ -164,12 +165,12 @@ if (!$_POST){
 			case "TemperatureController":
 			case "EqualizeTemperature":
 			case "AlwaysOn":
-				$xml->Furniture->$k = $v; // $k, input name; $v, input value
+				$xml->Furniture->$k = $v;
 				break;
 			case "AuraValues":
 			case "RoleBuffs":
 				$v = str_replace(',', "\n", $v);
-				$xml->Furniture->$k = $v; // $k, input name; $v, input value
+				$xml->Furniture->$k = $v;
 				break;
 			case "ColorPrimaryDefault":
 			case "ColorSecondaryDefault":
@@ -184,7 +185,6 @@ if (!$_POST){
 				$colors .= "1";
 				$xml->Furniture->$k = $colors;
 				break;
-			// Add AutoBounds = True
 			case "submit":
 				continue;
 			default:
@@ -402,6 +402,8 @@ if (!$_POST){
 									<div class="form-group">
 									  <label class="col-md-4 control-label" for="Environment">Environment</label>  
 									  <div class="col-md-7">
+									  <div id="env_slide">
+									  </div>
 									  <input id="Environment" name="Environment" type="text" placeholder="0-2 (Negative to Positive)" class="form-control input-md">
 									  </div>
 									</div>
@@ -409,6 +411,8 @@ if (!$_POST){
 									<div class="form-group">
 									  <label class="col-md-4 control-label" for="Wattage">Wattage</label>  
 									  <div class="col-md-7">
+									  <div id="wattage_slide">
+									  </div>
 									  <input id="Wattage" name="Wattage" type="text" placeholder="0-100 (None to Full)" class="form-control input-md">
 									  </div>
 									</div>
@@ -416,6 +420,8 @@ if (!$_POST){
 									<div class="form-group">
 									  <label class="col-md-4 control-label" for="Lighting">Lighting</label>  
 									  <div class="col-md-7">
+									  <div id="lighting_slide">
+									  </div>
 									  <input id="Lighting" name="Lighting" type="text" placeholder="0-2 (None to Full)" class="form-control input-md">								
 									  </div>
 									</div>
@@ -423,6 +429,8 @@ if (!$_POST){
 									<div class="form-group">
 									  <label class="col-md-4 control-label" for="Noisiness">Noisiness</label>  
 									  <div class="col-md-7">
+									  <div id="noisiness_slide">
+									  </div>
 									  <input id="Noisiness" name="Noisiness" type="text" placeholder="0-55 (None to Full)" class="form-control input-md">
 									  </div>
 									</div>
@@ -430,6 +438,8 @@ if (!$_POST){
 									<div class="form-group">
 									  <label class="col-md-4 control-label" for="Water">Water Usage</label>  
 									  <div class="col-md-7">
+									  <div id="water_slide">
+									  </div><!-- Heh water slide -->
 									  <input id="Water" name="Water" type="text" placeholder="0-100 (None to Full)" class="form-control input-md">
 									  </div>
 									</div>
@@ -437,6 +447,8 @@ if (!$_POST){
 									<div class="form-group">
 									  <label class="col-md-4 control-label" for="Coffee">Coffee</label>  
 									  <div class="col-md-7">
+									  <div id="coffee_slide">
+									  </div>
 									  <input id="Coffee" name="Coffee" type="text" placeholder="0-3 (None to Full)" class="form-control input-md"> 
 									  </div>
 									</div>
@@ -444,6 +456,8 @@ if (!$_POST){
 									<div class="form-group">
 									  <label class="col-md-4 control-label" for="Comfort">Comfort</label>  
 									  <div class="col-md-7">
+									  <div id="comfort_slide">
+									  </div>
 									  <input id="Comfort" name="Comfort" type="text" placeholder="0-1 (None to Full)" class="form-control input-md" >
 									  </div>
 									</div>
@@ -451,6 +465,8 @@ if (!$_POST){
 									<div class="form-group">
 									  <label class="col-md-4 control-label" for="ComputerPower">PC Power</label>  
 									  <div class="col-md-7">
+									  <div id="pc_slide">
+									  </div>
 									  <input id="ComputerPower" name="ComputerPower" type="text" placeholder="0-1.75 (None to Full)" class="form-control input-md" > 
 									  </div>
 									</div>
@@ -588,7 +604,114 @@ if (!$_POST){
 			</form>
 		</div>
 	</div>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.js"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
 	<script src="js/nouislider.js"></script>
+	<!-- noUIslider config -->
+	<script>
+	  var environment = document.getElementById('env_slide');
+	  var wattage = document.getElementById('wattage_slide');
+	  var lighting = document.getElementById('lighting_slide');
+	  var noisiness = document.getElementById('noisiness_slide');
+	  var water = document.getElementById('water_slide');
+	  var coffee = document.getElementById('coffee_slide');
+	  var comfort = document.getElementById('comfort_slide');
+	  var pc = document.getElementById('pc_slide');
+
+	  noUiSlider.create(environment, {
+	  	start: [ 0 ],
+	  	range: {
+	  		'min': 0,
+	  		'max': 2
+	  	}
+	  });
+
+	  noUiSlider.create(wattage, {
+	  	start: [ 0 ],
+	  	range: {
+	  		'min': 0,
+	  		'max': 100
+	  	}
+	  });
+
+	  noUiSlider.create(lighting, {
+	  	start: [ 0 ],
+	  	range: {
+	  		'min': 0,
+	  		'max': 2
+	  	}
+	  });
+
+	  noUiSlider.create(noisiness, {
+	  	start: [ 0 ],
+	  	range: {
+	  		'min': 0,
+	  		'max': 55
+	  	}
+	  });
+
+	  noUiSlider.create(water, {
+	  	start: [ 0 ],
+	  	range: {
+	  		'min': 0,
+	  		'max': 100
+	  	}
+	  });
+
+	  noUiSlider.create(coffee, {
+	  	start: [ 0 ],
+	  	range: {
+	  		'min': 0,
+	  		'max': 3
+	  	}
+	  });
+
+	  noUiSlider.create(comfort, {
+	  	start: [ 0 ],
+	  	range: {
+	  		'min': 0,
+	  		'max': 1
+	  	}
+	  });
+
+	  noUiSlider.create(pc, {
+	  	start: [ 0 ],
+	  	range: {
+	  		'min': 0,
+	  		'max': 1.75
+	  	}
+	  });
+
+	  environment.noUiSlider.on('update', function(){
+	    $('#Environment').attr('value', environment.noUiSlider.get());
+	  });
+
+	  wattage.noUiSlider.on('update', function(){
+	    $('#Wattage').attr('value', wattage.noUiSlider.get());
+	  });
+
+	  lighting.noUiSlider.on('update', function(){
+	    $('#Lighting').attr('value', lighting.noUiSlider.get());
+	  });
+
+	  noisiness.noUiSlider.on('update', function(){
+	    $('#Noisiness').attr('value', noisiness.noUiSlider.get());
+	  });
+
+	  water.noUiSlider.on('update', function(){
+	    $('#Water').attr('value', water.noUiSlider.get());
+	  });
+
+	  coffee.noUiSlider.on('update', function(){
+	    $('#Coffee').attr('value', coffee.noUiSlider.get());
+	  });
+
+	  comfort.noUiSlider.on('update', function(){
+	    $('#Comfort').attr('value', comfort.noUiSlider.get());
+	  });
+
+	  pc.noUiSlider.on('update', function(){
+	    $('#ComputerPower').attr('value', pc.noUiSlider.get());
+	  });
+	</script>
 </body>
