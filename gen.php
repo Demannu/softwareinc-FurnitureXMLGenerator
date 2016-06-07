@@ -13,8 +13,8 @@ $xmlSkeleton = <<<XML
 		</Model>
 	</Models>
 	<Furniture>
-		<Category></Category> 
-		<Cost></Cost> 
+		<Category></Category>
+		<Cost></Cost>
 		<ButtonDescription></ButtonDescription>
 		<UnlockYear></UnlockYear>
 		<PrimaryColorName></PrimaryColorName>
@@ -22,6 +22,92 @@ $xmlSkeleton = <<<XML
 	</Furniture>
 </Root>
 XML;
+
+$baseFurnitureTypes = array(
+	"Office" => array(
+		"Table",
+		"Glass Table",
+		"2m End Table",
+		"3m End Table",
+		"Cheap Chair",
+		"Office Chair",
+		"Old Computer",
+		"90s Computer",
+		"Laptop",
+		"Modern Computer",
+		"HoloComputer",
+		"Cubicle Wall",
+		"TV",
+		"Bookshelf",
+		"Phone",
+		"Drawing Tablet",
+		"Calculator",
+		"Inbox",
+	),
+	"Reception" => array(
+		"Waiting Chairs",
+		"Couch",
+		"Reception Desk",
+	),
+	"Outdoor" => array(
+		"Bench",
+		"Outdoor Lamp",
+		"Small tree",
+		"Small pine tree",
+	),
+	"Temperature" => array(
+		"Small Heater",
+		"Ceiling Fan",
+		"Radiator",
+		"Ventilation",
+		"Central Heating",
+		"AC Unit",
+		"Industrial ventilation",
+	),
+	"Lighting" => array(
+		"Lamp",
+		"Wall Lamp",
+		"Desk Lamp",
+		"Floor Lamp",
+		"Fluroescent lamp",
+	),
+	"Needs" => array(
+		"Vending Machine",
+		"Fridge",
+		"Stove",
+		"Serving Tray",
+		"Instant Coffee",
+		"Coffee",
+		"Espresso Machine",
+		"Toilet",
+		"Watercooler",
+	),
+	"Decoration" => array(
+		"Painting",
+		"Floor Plant",
+		"Table Plant",
+		"Table Cactus",
+		"Big Plant",
+		"Clock",
+	),
+	"Server" => array(
+		"Samll Server",
+		"Medium Server",
+		"Tower Server",
+		"Server Rack",
+	)
+);
+
+// In Place (outputs) <option value="$a">$a</option> in categories.
+function _html_generate_options($groups) {
+	foreach ($groups as $label => $options) {
+		echo "<optgroup label=\"$label\">";
+		foreach ($options as $option) {
+			echo "<option value=\"$option\">$option</option>";
+		}
+		echo "</optgroup>";
+	}
+}
 
 // Read the POST data and act on the inputs
 if (!$_POST){
@@ -35,7 +121,7 @@ if (!$_POST){
         	case "submit":
         		if($k == "submit"){
         			$xml->addAttribute("AutoBounds", "True");
-        		}
+				}
         		continue;
         	case "Base":
         	case "UpgradeFrom":
@@ -121,16 +207,17 @@ if (!$_POST){
     exit;
 }
 
-?>
-
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
+?><!DOCTYPE html>
 	<style>
 	body {
 		padding-top: 70px;
 		background-color: #d6d8cd;
+	}
+	optgroup {
+		align: center;
+		font-size:150%;
+		color: white;
+		background-color: black;
 	}
 	</style>
 	<title> Software Inc XML Generator </title>
@@ -141,19 +228,11 @@ if (!$_POST){
         <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
         <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
-</head>
-
 <body>
 <nav class="navbar navbar-inverse navbar-fixed-top">
   <div class="container-fluid">
     <!-- Brand and toggle get grouped for better mobile display -->
     <div class="navbar-header">
-      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-        <span class="sr-only">Toggle navigation</span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-      </button>
       <a class="navbar-brand" href="https://steamcommunity.com/id/spairolled/myworkshopfiles/">Demannu | Workshop</a>
     </div>
 
@@ -175,77 +254,15 @@ if (!$_POST){
 							<h3 class="panel-title"> Basic Options </h3>
 						</div>
 						<div class="panel-body">
+
 						<!-- Select Basic -->
 						<div class="form-group">
-						  <label class=" col-md-4 control-label" for="Base">Base</label>
-						  <div class="col-md-6">
-						    <select id="Base" name="Base" class="form-control">
-						    	<option value="" style="align: center; font-size:150%; color: white; background-color: black;">Office</span></option>
-								<option value="Table"> Table </option>
-								<option value="Glass Table"> Glass Table </option>
-								<option value="2m End Table"> 2m End Table </option>
-								<option value="3m End Table"> 3m End Table </option>
-								<option value="Cheap Chair"> Cheap Chair </option>
-								<option value="Office Chair"> Office Chair </option>
-								<option value="Old Computer"> Old Computer </option> 
-								<option value="90s Computer"> 90s Computer </option>  
-								<option value="Laptop"> Laptop </option> Laptop </option>  
-								<option value="Modern Computer"> Modern Computer </option> 
-								<option value="HoloComputer">  HoloComputer </option>
-								<option value="Cubicle Wall">  Cubicle Wall </option>
-								<option value="TV">  TV </option>
-								<option value="Bookshelf">  Bookshelf </option>
-								<option value="Phone">  Phone </option>
-								<option value="Drawing Tablet">  Drawing Tablet </option>
-								<option value="Calculator">  Calculator </option>
-								<option value="Inbox">  Inbox </option>
-								<option value="" style="align: center; font-size:150%; color: white; background-color: black;">Reception</option>
-								<option value="Waiting Chairs">  Waiting Chairs </option>
-								<option value="Couch">  Couch </option>
-								<option value="Reception desk">  Reception desk </option>
-								<option value="" style="align: center; font-size:150%; color: white; background-color: black;">Outdoor</option>
-								<option value="Bench">  Bench </option>
-								<option value="Outdoor Lamp">  Outdoor Lamp </option>
-								<option value="Small tree">  Small tree </option>
-								<option value="Small pine tree">  Small pine tree </option>
-								<option value="" style="align: center; font-size:150%; color: white; background-color: black;">Temperature</option>
-								<option value="Small Heater">  Small Heater </option>
-								<option value="Ceiling Fan">  Ceiling Fan </option>
-								<option value="Radiator">  Radiator </option>
-								<option value="Ventilation">  Ventilation </option>
-								<option value="Central Heating">  Central Heating </option>
-								<option value="AC Unit">  AC Unit </option>
-								<option value="Industrial ventilation">  Industrial ventilation </option>
-								<option value="" style="align: center; font-size:150%; color: white; background-color: black;">Lighting</option>
-								<option value="Lamp">  Lamp </option>
-								<option value="Wall Lamp">  Wall Lamp </option>
-								<option value="Desk Lamp">  Desk Lamp </option>
-								<option value="Floor Lamp">  Floor Lamp </option>
-								<option value="Fluroescent lamp">  Fluroescent lamp </option>
-								<option value="" style="align: center; font-size:150%; color: white; background-color: black;">Needs</option>
-								<option value="Vending Machine">  Vending Machine </option>
-								<option value="Fridge">  Fridge </option>
-								<option value="Stove">  Stove </option>
-								<option value="Serving Tray">  Serving Tray </option>
-								<option value="Instant Coffee">  Instant Coffee </option>
-								<option value="Coffee">  Coffee </option>
-								<option value="Espresso Machine">  Espresso Machine </option>
-								<option value="Toilet">  Toilet </option>
-								<option value="Watercooler">  Watercooler </option>
-								<option value="" style="align: center; font-size:150%; color: white; background-color: black;">Decoration</option>
-								<option value="Painting">  Painting </option>
-								<option value="Floor Plant">  Floor Plant </option>
-								<option value="Table Plant">  Table Plant </option>
-								<option value="Table Cactus">  Table Cactus </option>
-								<option value="Big Plant">  Big Plant </option>
-								<option value="Clock">  Clock </option>
-								<option value="" style="align: center; font-size:150%; color: white; background-color: black;">Server</option>
-								<option value="Small Server">  Small Server </option>
-								<option value="Medium Server">  Medium Server </option>
-								<option value="Tower Server">  Tower Server </option>
-								<option value="Server Rack">  Server Rack </option>
-						    </select>
-						  </div>
+							<label class=" col-md-4 control-label" for="Base">Base</label>
+							<div class="col-md-6">
+								<select id="Base" name="Base" class="form-control">
+									<?=_html_generate_options($baseFurnitureTypes); ?>
+								</select>
+							</div>
 						</div>
 
 						<!-- Select Basic -->
@@ -260,10 +277,10 @@ if (!$_POST){
 								<option value="3m End Table"> 3m End Table </option>
 								<option value="Cheap Chair"> Cheap Chair </option>
 								<option value="Office Chair"> Office Chair </option>
-								<option value="Old Computer"> Old Computer </option> 
-								<option value="90s Computer"> 90s Computer </option>  
-								<option value="Laptop"> Laptop </option> Laptop </option>  
-								<option value="Modern Computer"> Modern Computer </option> 
+								<option value="Old Computer"> Old Computer </option>
+								<option value="90s Computer"> 90s Computer </option>
+								<option value="Laptop"> Laptop </option> Laptop </option>
+								<option value="Modern Computer"> Modern Computer </option>
 								<option value="HoloComputer">  HoloComputer </option>
 								<option value="Cubicle Wall">  Cubicle Wall </option>
 								<option value="TV">  TV </option>
@@ -323,19 +340,19 @@ if (!$_POST){
 
 						<!-- Text input-->
 						<div class="form-group">
-						  <label class=" col-md-4 control-label" for="Thumbnail">Thumbnail</label>  
+						  <label class=" col-md-4 control-label" for="Thumbnail">Thumbnail</label>
 						  <div class="col-md-6">
 						  <input id="Thumbnail" name="Thumbnail" type="text" placeholder="Thumbnail.png" class="form-control input-md" >
-						    
+
 						  </div>
 						</div>
 
 						<!-- Text input-->
 						<div class="form-group">
-						  <label class=" col-md-4 control-label" for="File">3D Model</label>  
+						  <label class=" col-md-4 control-label" for="File">3D Model</label>
 						  <div class="col-md-6">
 						  <input id="File" name="File" type="text" placeholder="modObject.obj" class="form-control input-md" >
-						    
+
 						  </div>
 						</div>
 					</div>
@@ -350,7 +367,7 @@ if (!$_POST){
 						  <label class=" col-md-4 control-label" for="Position">Position</label>
 						  <div class="col-md-6">
 						  <input id="Position" name="Position" type="text" placeholder="x,y,z" class="form-control input-md" >
-						    
+
 						  </div>
 						</div>
 
@@ -359,16 +376,16 @@ if (!$_POST){
 						  <label class=" col-md-4 control-label" for="Rotation">Rotation</label>
 						  <div class="col-md-6">
 						  <input id="Rotation" name="Rotation" type="text" placeholder="x,y,z" class="form-control input-md" >
-						    
+
 						  </div>
 						</div>
 
 						<!-- Text input-->
 						<div class="form-group">
-						  <label class=" col-md-4 control-label" for="Scale">Scale</label>  
+						  <label class=" col-md-4 control-label" for="Scale">Scale</label>
 						  <div class="col-md-6">
 						  <input id="Scale" name="Scale" type="text" placeholder="0,0,0" class="form-control input-md" value="0,0,0">
-						    
+
 						  </div>
 						</div>
 						</div>
@@ -385,9 +402,9 @@ if (!$_POST){
 							<div class="col-md-6">
 							<!-- Text input-->
 								<div class="form-group">
-								  <label class="col-md-4 control-label" for="Type">Type</label>  
+								  <label class="col-md-4 control-label" for="Type">Type</label>
 								  <div class="col-md-7">
-								  <input id="Type" name="Type" type="text" placeholder="fill type" class="form-control input-md">  
+								  <input id="Type" name="Type" type="text" placeholder="fill type" class="form-control input-md">
 								  </div>
 								</div>
 								<!-- Select Basic -->
@@ -408,88 +425,88 @@ if (!$_POST){
 
 								<!-- Text input-->
 								<div class="form-group">
-								  <label class="col-md-4 control-label" for="Cost">Cost</label>  
+								  <label class="col-md-4 control-label" for="Cost">Cost</label>
 								  <div class="col-md-7">
 								  <input id="Cost" name="Cost" type="text" placeholder="1337" class="form-control input-md" >
-								  <span class="help-block">No punctuation</span>  
+								  <span class="help-block">No punctuation</span>
 								  </div>
 								</div>
 
 								<!-- Text input-->
 								<div class="form-group">
-								  <label class="col-md-4 control-label" for="UnlockYear">Unlock Year</label>  
+								  <label class="col-md-4 control-label" for="UnlockYear">Unlock Year</label>
 								  <div class="col-md-7">
 								  <input id="UnlockYear" name="UnlockYear" type="text" placeholder="1970" class="form-control input-md" >
-								    
+
 								  </div>
 								</div>
 
 								<!-- Textarea -->
 								<div class="form-group">
 								  <label class="col-md-4 control-label" for="ButtonDescription">Description</label>
-								  <div class="col-md-7">                     
+								  <div class="col-md-7">
 								    <textarea class="form-control" id="ButtonDescription" name="ButtonDescription" placeholder="Write something nice about your item!"></textarea>
 								  </div>
 								</div>
 
 								<!-- Text input-->
 								<div class="form-group">
-								  <label class="col-md-4 control-label" for="RoleBuffs">RoleBuffs</label>  
+								  <label class="col-md-4 control-label" for="RoleBuffs">RoleBuffs</label>
 								  <div class="col-md-7">
 								  <input id="RoleBuffs" name="RoleBuffs" type="text" placeholder="0,0,0,0,0" class="form-control input-md">
-								  <span class="help-block">Leader, Programmer, Designer, Artist, Marketer</span>  
+								  <span class="help-block">Leader, Programmer, Designer, Artist, Marketer</span>
 								  </div>
 								</div>
 
 								<!-- Text input-->
 								<div class="form-group">
-								  <label class="col-md-4 control-label" for="AuraValues">AuraValues</label>  
+								  <label class="col-md-4 control-label" for="AuraValues">AuraValues</label>
 								  <div class="col-md-7">
 								  <input id="AuraValues" name="AuraValues" type="text" placeholder="0,0,0" class="form-control input-md">
-								  <span class="help-block">Efficiency, Skill, Mood</span>  
+								  <span class="help-block">Efficiency, Skill, Mood</span>
 								  </div>
 								</div>
 							</div>
 							<div class="col-md-6">
 								<!-- Text input-->
 								<div class="form-group">
-								  <label class="col-md-4 control-label" for="ComputerPower">Computer Power</label>  
+								  <label class="col-md-4 control-label" for="ComputerPower">Computer Power</label>
 								  <div class="col-md-7">
 								  <input id="ComputerPower" name="ComputerPower" type="text" placeholder="(rangemin,rangemax)" class="form-control input-md">
-								    
+
 								  </div>
 								</div>
 
 								<!-- Text input-->
 								<div class="form-group">
-								  <label class="col-md-4 control-label" for="Lighting">Lighting</label>  
+								  <label class="col-md-4 control-label" for="Lighting">Lighting</label>
 								  <div class="col-md-7">
 								  <input id="Lighting" name="Lighting" type="text" placeholder="(rangemin,rangemax)" class="form-control input-md">
-								    
+
 								  </div>
 								</div>
 
 								<!-- Text input-->
 								<div class="form-group">
-								  <label class="col-md-4 control-label" for="Environment">Environment</label>  
+								  <label class="col-md-4 control-label" for="Environment">Environment</label>
 								  <div class="col-md-7">
 								  <input id="Environment" name="Environment" type="text" placeholder="(rangemin,rangemax)" class="form-control input-md">
-								    
+
 								  </div>
 								</div>
 
 								<!-- Text input-->
 								<div class="form-group">
-								  <label class="col-md-4 control-label" for="Noisiness">Noisiness</label>  
+								  <label class="col-md-4 control-label" for="Noisiness">Noisiness</label>
 								  <div class="col-md-7">
 								  <input id="Noisiness" name="Noisiness" type="text" placeholder="(rangemin,rangemax)" class="form-control input-md">
-								    
+
 								  </div>
 								</div>
 
 								<!-- Text input-->
 								<div class="form-group">
-								  <label class="col-md-4 control-label" for="Water">Water Usage</label>  
+								  <label class="col-md-4 control-label" for="Water">Water Usage</label>
 								  <div class="col-md-7">
 								  <input id="Water" name="Water" type="text" placeholder="(rangemin,rangemax)" class="form-control input-md">
 								  </div>
@@ -497,7 +514,7 @@ if (!$_POST){
 
 								<!-- Text input-->
 								<div class="form-group">
-								  <label class="col-md-4 control-label" for="Wattage">Energy Usage</label>  
+								  <label class="col-md-4 control-label" for="Wattage">Energy Usage</label>
 								  <div class="col-md-7">
 								  <input id="Wattage" name="Wattage" type="text" placeholder="(rangemin,rangemax)" class="form-control input-md">
 								  </div>
@@ -505,7 +522,7 @@ if (!$_POST){
 
 								<!-- Text input-->
 								<div class="form-group">
-								  <label class="col-md-4 control-label" for="Coffee">Coffee Strength</label>  
+								  <label class="col-md-4 control-label" for="Coffee">Coffee Strength</label>
 								  <div class="col-md-7">
 								  <input id="Coffee" name="Coffee" type="text" placeholder="(rangemin,rangemax)" class="form-control input-md">
 								  </div>
@@ -513,7 +530,7 @@ if (!$_POST){
 
 								<!-- Text input-->
 								<div class="form-group">
-								  <label class="col-md-4 control-label" for="Comfort">Comfort</label>  
+								  <label class="col-md-4 control-label" for="Comfort">Comfort</label>
 								  <div class="col-md-7">
 								  <input id="Comfort" name="Comfort" type="text" placeholder="(rangemin,rangemax)" class="form-control input-md">
 								  </div>
@@ -550,55 +567,55 @@ if (!$_POST){
 						<div class="panel-body">
 						<!-- Text input-->
 						<div class="form-group">
-						  <label class="col-md-4 control-label" for="PrimaryColorName">1st Color Name</label>  
+						  <label class="col-md-4 control-label" for="PrimaryColorName">1st Color Name</label>
 						  <div class="col-md-6">
 						  <input id="PrimaryColorName" name="PrimaryColorName" type="text" placeholder="colorName" class="form-control input-md">
-						    
+
 						  </div>
 						</div>
 
 						<!-- Text input-->
 						<div class="form-group">
-						  <label class="col-md-4 control-label" for="ColorPrimaryDefault">Color in RGBA</label>  
+						  <label class="col-md-4 control-label" for="ColorPrimaryDefault">Color in RGBA</label>
 						  <div class="col-md-6">
 						  <input id="ColorPrimaryDefault" name="ColorPrimaryDefault" type="text" placeholder="r,g,b" class="form-control input-md">
-						    
+
 						  </div>
 						</div>
 
 						<!-- Text input-->
 						<div class="form-group">
-						  <label class="col-md-4 control-label" for="SecondaryColorName">2nd Color Name</label>  
+						  <label class="col-md-4 control-label" for="SecondaryColorName">2nd Color Name</label>
 						  <div class="col-md-6">
 						  <input id="SecondaryColorName" name="SecondaryColorName" type="text" placeholder="colorName" class="form-control input-md">
-						    
+
 						  </div>
 						</div>
 
 						<!-- Text input-->
 						<div class="form-group">
-						  <label class="col-md-4 control-label" for="ColorSecondaryDefault">Color in RGBA</label>  
+						  <label class="col-md-4 control-label" for="ColorSecondaryDefault">Color in RGBA</label>
 						  <div class="col-md-6">
 						  <input id="ColorSecondaryDefault" name="ColorSecondaryDefault" type="text" placeholder="r,g,b" class="form-control input-md">
-						    
+
 						  </div>
 						</div>
 
 						<!-- Text input-->
 						<div class="form-group">
-						  <label class="col-md-4 control-label" for="TertiaryColorName">3rd Color Name</label>  
+						  <label class="col-md-4 control-label" for="TertiaryColorName">3rd Color Name</label>
 						  <div class="col-md-6">
 						  <input id="TertiaryColorName" name="TertiaryColorName" type="text" placeholder="colorName" class="form-control input-md">
-						    
+
 						  </div>
 						</div>
 
 						<!-- Text input-->
 						<div class="form-group">
-						  <label class="col-md-4 control-label" for="ColorTertiaryDefault">Color in RGBA</label>  
+						  <label class="col-md-4 control-label" for="ColorTertiaryDefault">Color in RGBA</label>
 						  <div class="col-md-6">
 						  <input id="ColorTertiaryDefault" name="ColorTertiaryDefault" type="text" placeholder="r,g,b" class="form-control input-md">
-						    
+
 						  </div>
 						</div>
 						<div class="row">
@@ -660,5 +677,3 @@ if (!$_POST){
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
 </body>
-
-</html>
