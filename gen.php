@@ -103,6 +103,7 @@ function _html_generate_options($groups) {
 		echo "</optgroup>";
 	}
 }
+// TODO: Automate the HTML input based on arrays entered
 
 // Read the POST data and act on the inputs
 if (!$_POST){
@@ -206,6 +207,8 @@ if (!$_POST){
 	// Send XML file to browser
 	echo $dom->saveXML();
 	exit;
+
+
 }
 
 ?><!DOCTYPE html>
@@ -252,7 +255,7 @@ if (!$_POST){
 	<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 	  <ul class="nav navbar-nav">
 		<li class="active"><a href="http://demannu.com/softwareinc/gen.php">XML Generator <span class="sr-only">(current)</span></a></li>
-		<li><a href="#">Link</a></li>
+		<li><a href="https://github.com/Demannu/softwareinc-FurnitureXMLGenerator">View on GitHub</a></li>
 	  </ul>
 	</div>
   </div>
@@ -513,9 +516,9 @@ if (!$_POST){
 							</div>
 
 							<div class="form-group">
-							  <label class="col-md-4 control-label" for="ColorPrimaryDefault">Color in RGBA</label>  
+							  <label class="col-md-4 control-label" for="ColorPrimaryDefault">Color in RGBA</label> 
 							  <div class="col-md-6">
-							  <input id="ColorPrimaryDefault" name="ColorPrimaryDefault" type="text" placeholder="r,g,b" class="form-control input-md">
+							  <input id="ColorPrimaryDefault" name="ColorPrimaryDefault" type="text" placeholder="r,g,b" class="form-control input-md result" id="Primary">
 							  </div>
 							</div>
 
@@ -528,8 +531,8 @@ if (!$_POST){
 
 							<div class="form-group">
 							  <label class="col-md-4 control-label" for="ColorSecondaryDefault">Color in RGBA</label>  
-							  <div class="col-md-6">
-							  <input id="ColorSecondaryDefault" name="ColorSecondaryDefault" type="text" placeholder="r,g,b" class="form-control input-md">
+							  <div class="col-md-6">  
+							  <input id="ColorSecondaryDefault" name="ColorSecondaryDefault" type="text" placeholder="r,g,b" class="form-control input-md" id="Secondary">
 							  </div>
 							</div>
 
@@ -559,23 +562,23 @@ if (!$_POST){
 										</div>
 									  </div>
 									</div>
-									</div>
+								</div>
+								<div class="col-md-4">
+								  <div class="form-group">
 									<div class="col-md-4">
-									<div class="form-group">
-									  <div class="col-md-4">
 									  <div class="checkbox">
 										<label for="ColorSecondaryEnabled-0">
 										  <input type="checkbox" name="ColorSecondaryEnabled" id="ColorSecondaryEnabled-0" value="True">
 										  Secondary
 										</label>
-										</div>
 									  </div>
 									</div>
-									</div>
-									<div class="col-md-4">
-									<div class="form-group">
-									  <div class="col-md-4">
-									  <div class="checkbox">
+								  </div>
+								</div>
+								<div class="col-md-4">
+								  <div class="form-group">
+								    <div class="col-md-4">
+								      <div class="checkbox">
 										<label for="ColorTertiaryEnabled-0">
 										  <input type="checkbox" name="ColorTertiaryEnabled" id="ColorTertiaryEnabled-0" value="True">
 										  Tertiary
@@ -607,111 +610,5 @@ if (!$_POST){
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.js"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
 	<script src="js/nouislider.js"></script>
-	<!-- noUIslider config -->
-	<script>
-	  var environment = document.getElementById('env_slide');
-	  var wattage = document.getElementById('wattage_slide');
-	  var lighting = document.getElementById('lighting_slide');
-	  var noisiness = document.getElementById('noisiness_slide');
-	  var water = document.getElementById('water_slide');
-	  var coffee = document.getElementById('coffee_slide');
-	  var comfort = document.getElementById('comfort_slide');
-	  var pc = document.getElementById('pc_slide');
-
-	  noUiSlider.create(environment, {
-	  	start: [ 0 ],
-	  	range: {
-	  		'min': 0,
-	  		'max': 2
-	  	}
-	  });
-
-	  noUiSlider.create(wattage, {
-	  	start: [ 0 ],
-	  	range: {
-	  		'min': 0,
-	  		'max': 100
-	  	}
-	  });
-
-	  noUiSlider.create(lighting, {
-	  	start: [ 0 ],
-	  	range: {
-	  		'min': 0,
-	  		'max': 2
-	  	}
-	  });
-
-	  noUiSlider.create(noisiness, {
-	  	start: [ 0 ],
-	  	range: {
-	  		'min': 0,
-	  		'max': 55
-	  	}
-	  });
-
-	  noUiSlider.create(water, {
-	  	start: [ 0 ],
-	  	range: {
-	  		'min': 0,
-	  		'max': 100
-	  	}
-	  });
-
-	  noUiSlider.create(coffee, {
-	  	start: [ 0 ],
-	  	range: {
-	  		'min': 0,
-	  		'max': 3
-	  	}
-	  });
-
-	  noUiSlider.create(comfort, {
-	  	start: [ 0 ],
-	  	range: {
-	  		'min': 0,
-	  		'max': 1
-	  	}
-	  });
-
-	  noUiSlider.create(pc, {
-	  	start: [ 0 ],
-	  	range: {
-	  		'min': 0,
-	  		'max': 1.75
-	  	}
-	  });
-
-	  environment.noUiSlider.on('update', function(){
-	    $('#Environment').attr('value', environment.noUiSlider.get());
-	  });
-
-	  wattage.noUiSlider.on('update', function(){
-	    $('#Wattage').attr('value', wattage.noUiSlider.get());
-	  });
-
-	  lighting.noUiSlider.on('update', function(){
-	    $('#Lighting').attr('value', lighting.noUiSlider.get());
-	  });
-
-	  noisiness.noUiSlider.on('update', function(){
-	    $('#Noisiness').attr('value', noisiness.noUiSlider.get());
-	  });
-
-	  water.noUiSlider.on('update', function(){
-	    $('#Water').attr('value', water.noUiSlider.get());
-	  });
-
-	  coffee.noUiSlider.on('update', function(){
-	    $('#Coffee').attr('value', coffee.noUiSlider.get());
-	  });
-
-	  comfort.noUiSlider.on('update', function(){
-	    $('#Comfort').attr('value', comfort.noUiSlider.get());
-	  });
-
-	  pc.noUiSlider.on('update', function(){
-	    $('#ComputerPower').attr('value', pc.noUiSlider.get());
-	  });
-	</script>
+	<script src="js/sliderControl.js"></script>
 </body>
