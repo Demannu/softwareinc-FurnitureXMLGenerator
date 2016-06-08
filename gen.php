@@ -19,6 +19,7 @@ $xmlSkeleton = <<<XML
 XML;
 
 $baseFurnitureTypes = array(
+	"None" => array(""),
 	"Office" => array(
 		"Table",
 		"Glass Table",
@@ -588,18 +589,6 @@ if (!$_POST){
 									</div>
 								</div>
 							</div>
-						</div>
-					</div>
-					<!-- Upgradables Panel -->
-					<div class="panel panel-default">
-						<div class="panel-heading">
-							<h3 class="panel-title">Upgradable</h3>
-						</div>
-						<div class="panel-body">
-							Time to Damage <input type="text" name="TimeToAtrophy"> <br>
-							Cost to upgrade <input type="text" name="UpgradePrice"> <br>
-							Always degrade? <input type="checkbox" name="DegradeAlways"> <br>
-							Affected by temperature? <input type="checkbox" name="AffectedByTemp"> <br>
 						</div>
 					</div>
 				</div>
