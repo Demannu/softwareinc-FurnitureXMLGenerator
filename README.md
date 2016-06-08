@@ -12,7 +12,7 @@
  - OBJ Viewer
  - Materials
 
-This is a PHP script, currently hosted at [http://demannu.com/softwareinc/gen.php]().  It's purpose is to provide an easy interface to generate furniture XMLs.
+This is a PHP script, currently hosted at [http://demannu.com/softwareinc/gen.php].  It's purpose is to provide an easy interface to generate furniture XMLs.
 
 ## Hey, listen:
 
