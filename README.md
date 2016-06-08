@@ -6,9 +6,9 @@
 ## Features
  - RGB converted to Unity colors
  - Click and Go XML Generation
+ - Graphical slider for attributes
 
 **Planned Features**
- - Graphical slider for attributes
  - OBJ Viewer
  - Materials
 
