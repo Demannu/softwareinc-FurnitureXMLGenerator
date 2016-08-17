@@ -65,7 +65,7 @@ $baseFurnitureTypes = array(
 		"Wall Lamp",
 		"Desk Lamp",
 		"Floor Lamp",
-		"Fluroescent lamp",
+		"Fluorescent lamp",
 	),
 	"Needs" => array(
 		"Vending Machine",
@@ -221,7 +221,7 @@ if (!$_POST){
 		background-color: #d6d8cd;
 	}
 	select optgroup {
-		background-color: black;
+		background-color: #4E4E4E;
 		color: white;
 		
 		font-size: 125%;
@@ -347,7 +347,7 @@ if (!$_POST){
 									</div>
 
 									<div class="form-group">
-									  <label class="col-md-4 control-label" for="Cateogry">Category</label>
+									  <label class="col-md-4 control-label" for="Category">Category</label>
 									  <div class="col-md-7">
 										<select id="Category" name="Category" class="form-control">
 											<option value="Office">Office</option>
